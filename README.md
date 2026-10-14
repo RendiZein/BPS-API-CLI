@@ -1,6 +1,9 @@
-# BPS API Skill & Tooling untuk AI Agent
+# BPS API Skill (Unofficial) untuk AI Agent
 
-Repository ini menyediakan **Skill Resmi & Klien BPS (Badan Pusat Statistik) Web API** yang telah diaudit, terverifikasi, dan siap digunakan oleh AI Agent (Antigravity, Cline, Cursor, dsb.) maupun pengembang data science.
+> [!NOTE]
+> **Disclaimer**: Proyek ini merupakan skill independen/tidak resmi (*unofficial personal project*) yang dibuat untuk memudahkan integrasi AI Agent dengan Web API Badan Pusat Statistik (BPS) Republik Indonesia. Proyek ini tidak berafiliasi resmi dengan Badan Pusat Statistik.
+
+Repository ini menyediakan **Skill & Klien BPS Web API Independen** yang telah diaudit, terverifikasi, dan siap digunakan oleh AI Agent (Antigravity, Cursor, Cline, Claude Code, GitHub Copilot, dsb.) maupun pengembang data science.
 
 ---
 

@@ -16,9 +16,9 @@ keywords:
   - open-data
 ---
 
-# BPS (Badan Pusat Statistik) API Skill
+# BPS (Badan Pusat Statistik) API Skill (Unofficial)
 
-Kompilasi pengetahuan, runbook operasional, dan alat bantu (*tooling*) untuk berinteraksi dengan API resmi Badan Pusat Statistik (BPS) Republik Indonesia secara andal tanpa perlu melakukan audit ulang.
+Kompilasi pengetahuan, runbook operasional, dan alat bantu (*tooling*) independen untuk berinteraksi dengan Web API Badan Pusat Statistik (BPS) Republik Indonesia secara andal tanpa perlu melakukan audit ulang.
 
 ---
 
