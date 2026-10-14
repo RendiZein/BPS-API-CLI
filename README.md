@@ -103,22 +103,15 @@ python -m unittest discover -s .agents/skills/bps-api/tests
 
 ## 📦 Instalasi via `npx skills` (skills.sh)
 
-Skill ini telah kompatibel 100% dengan ekosistem **`npx skills`** (kompatibel dengan berbagai coding agent: Antigravity, Cursor, Cline, Claude Code, GitHub Copilot, Codex, Windsurf, dll.).
+Skill ini telah kompatibel 100% dan terdaftar di ekosistem **`npx skills`** (kompatibel dengan berbagai coding agent: Antigravity, Cursor, Cline, Claude Code, GitHub Copilot, Codex, Windsurf, dll.).
 
-### 1. Instalasi ke Proyek Lain Secara Lokal
-Jika Anda memiliki proyek lain di komputer Anda dan ingin menambahkan skill ini tanpa copy-paste manual:
+### Cara Memasang di Proyek Lain (Project-Level)
+Di dalam direktori proyek apa pun yang sedang Anda kerjakan, jalankan perintah berikut untuk memasang skill ini:
+
 ```bash
-# Di dalam direktori proyek target Anda:
-npx skills add /path/ke/sbps_api_skill --skill bps-api -p
+npx skills add RendiZein/sbps_api_skill --skill bps-api -p
 ```
 
-### 2. Mempublikasikan ke Registri Publik `skills.sh`
-`npx skills` menggunakan **GitHub sebagai package registry**. Begitu repositori ini di-push ke GitHub:
-1. Buat repository publik di GitHub (misal: `github.com/<username>/sbps_api_skill`).
-2. Push repositori ini ke GitHub.
-3. Siapa pun (atau Anda di perangkat lain) dapat langsung memasang skill ini:
-   ```bash
-   # Pasang di level proyek:
-   npx skills add <username>/sbps_api_skill --skill bps-api -p
-   ```
-   Skill ini otomatis terindeks di [skills.sh](https://skills.sh)!
+> [!NOTE]
+> * Flag `-p` (*project-level*) memastikan skill terpasang hanya di dalam proyek tersebut dan **tidak** mengubah konfigurasi global.
+> * Setelah terpasang, pastikan untuk mengisi `BPS_API_KEY` di file `.env` proyek target Anda.
