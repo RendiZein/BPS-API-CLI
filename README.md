@@ -1,120 +1,100 @@
-# BPS API Skill (Unofficial) untuk AI Agent
-
-> [!NOTE]
-> **Disclaimer**: Proyek ini merupakan skill independen/tidak resmi (*unofficial personal project*) yang dibuat untuk memudahkan integrasi AI Agent dengan Web API Badan Pusat Statistik (BPS) Republik Indonesia. Proyek ini tidak berafiliasi resmi dengan Badan Pusat Statistik.
-
-Repository ini menyediakan **Skill & Klien BPS Web API Independen** yang telah diaudit, terverifikasi, dan siap digunakan oleh AI Agent (Antigravity, Cursor, Cline, Claude Code, GitHub Copilot, dsb.) maupun pengembang data science.
+# BPS Agent-Native CLI Suite & Antigravity Skill
+> Autonomous Statistical Researcher & Data Availability Auditor for Badan Pusat Statistik (BPS) Indonesia  
+> Mengikuti Standar Arsitektur Penuh **HKUDS/CLI-Anything**
 
 ---
 
-## 🌟 Fitur Utama
+## 🌟 Ikhtisar Proyek
 
-- **Zero External Dependencies**: Dibangun murni menggunakan pustaka standar Python 3 (`urllib`, `json`, `csv`, `argparse`). Tidak memerlukan `pip install`.
-- **Anti-Error & Audit-Free**: Telah mengoreksi kesalahan rute pada dokumentasi resmi BPS (seperti path `/api/` yang hilang, parameter `th` wajib, parameter `lang` wajib, dsb.).
-- **Automatic Composite Key Decoder**: Otomatis mendekode matriks multi-dimensi numerik BPS (`datacontent`) menjadi baris tabel berlabel rapi.
-- **WAF & Rate-Limit Safe**: Header HTTP dirancang bersih untuk menghindari pemblokiran *Perimeter WAF Block*. Dilengkapi *retry backoff* otomatis saat server BPS *overload*.
-- **Multi-Format Export**: Mendukung tampilan tabel terminal, JSON murni, dan ekspor langsung ke file `.csv` via argumen `--output`.
-- **Dual-Engine Ready (V1 & V2)**: Menggunakan V1 secara default (aktif untuk kunci publik) dan siap beralih ke V2 hanya dengan mengubah baris konfigurasi `.env`.
+Repository ini menyediakan **BPS Agent-Native CLI Suite & Antigravity Skill** yang dirancang khusus untuk AI Agent (Antigravity, Cursor, Claude Code, dsb.) dan peneliti data (think tank, analis kebijakan, akademisi).
+
+Sistem ini tidak sekadar menarik data mentah, melainkan bertindak sebagai **Auditor Kelayakan Data**:
+1. **Readiness Probe (`bps status`)**: Memeriksa konektivitas dan latensi Web API BPS.
+2. **Probe Before Action (`bps audit`)**: Menilai ketersediaan rentang tahun, level wilayah, dan mendeteksi anomali pemekaran wilayah (Papua 34 $\rightarrow$ 38) sebelum mengunduh data.
+3. **Data Preview Protocol (`bps preview`)**: Emisi bundle `summary.json` hemat token dengan *content-addressable cache* SHA-256.
+4. **Safety Guard (`--dry-run`)**: Menghitung kuota panggilan HTTP dan jeda aman sebelum eksekusi riil untuk menghindari pemblokiran WAF.
+5. **Stateful Session Stack**: Penguncian berkas atomik cross-platform (`msvcrt` di Windows, `fcntl` di POSIX) dengan *undo/redo* 50 level dan rekam jejak riset di `trajectory.json`.
+6. **AST Auto-Sync `SKILL.md`**: Dokumentasi agen diperbarui otomatis dari kode Python via AST parser.
 
 ---
 
 ## 🚀 Panduan Memulai Cepat (Quickstart)
 
-### 1. Konfigurasi Lingkungan
-Buat file `.env` di direktori utama (contoh tersedia di [.env.example](./.env.example)):
+### 1. Instalasi Paket (Editable Mode)
+```bash
+python -m pip install -e .
+```
 
+### 2. Konfigurasi Lingkungan (`.env`)
+Salin contoh file `.env.example` menjadi `.env`:
 ```env
-BPS_API_KEY=your_bps_api_key_here
+BPS_API_KEY=kunci_api_bps_anda_di_sini
 BPS_API_VERSION=v1
 BPS_DEFAULT_DOMAIN=0000
 BPS_DEFAULT_LANG=ind
 ```
 
-### 2. Contoh Perintah CLI
+### 3. Alur Penggunaan CLI
 
+#### A. Cek Kesiapan Server API
 ```bash
-# 1. Cek indikator makroekonomi strategis nasional
-python .agents/skills/bps-api/scripts/bps_client.py indicators
-
-# 2. Cari subjek statistik
-python .agents/skills/bps-api/scripts/bps_client.py subject --keyword "inflasi"
-
-# 3. Cari variabel di bawah subjek
-python .agents/skills/bps-api/scripts/bps_client.py variable --subject 3
-
-# 4. Tarik data dinamis & ekspor ke CSV
-python .agents/skills/bps-api/scripts/bps_client.py dynamic-data --var 1753 --th 126 --format csv --output ekspor.csv
-
-# 5. Tarik transaksi perdagangan luar negeri (Exim) per Kode HS
-python .agents/skills/bps-api/scripts/bps_client.py exim --kodehs 03 --tahun 2023
-
-# 6. Eksplorasi Sensus Penduduk & Pertanian
-python .agents/skills/bps-api/scripts/bps_client.py sensus --action events
+bps status --json
 ```
 
-### 3. Penggunaan sebagai Python Library
+#### B. Inisialisasi Sesi & Audit Topik Riset
+```bash
+# Set domain sesi aktif ke Jawa Timur (3500)
+bps session init --domain 3500 --name "Riset_Jatim_2026" --json
 
-```python
-import sys, os
-sys.path.insert(0, os.path.abspath(".agents/skills/bps-api/scripts"))
-from bps_client import BPSClient
+# Audit ketersediaan data untuk topik kemiskinan
+bps audit --topic "kemiskinan" --json
 
-client = BPSClient()
+# Inspeksi kategori vertikal dan rentang tahun variabel
+bps inspect --var 49 --json
+```
 
-# Ambil ringkasan indikator
-pagination, indicators = client.get_indicators()
+#### C. Data Preview Protocol (Hemat Token)
+```bash
+# Menghasilkan summary.json dan sampel data (otomatis di-cache dengan SHA-256)
+bps preview --var 49 --th 126 --json
+```
 
-# Ambil & decode dynamic data
-raw = client.get_dynamic_data(var_id=1753, th_id=126)
-decoded_rows = client.decode_dynamic_data(raw)
-# Siap diolah: df = pd.DataFrame(decoded_rows)
+#### D. Penarikan Data Aman (Dry-Run & Export)
+```bash
+# 1. Cek kuota aman terlebih dahulu
+bps fetch --var 49 --th 126 --format csv --output data/kemiskinan_2026.csv --dry-run --json
+
+# 2. Eksekusi penarikan data ke file CSV
+bps fetch --var 49 --th 126 --format csv --output data/kemiskinan_2026.csv --json
+```
+
+#### E. Pemulihan Sesi (Undo / Redo)
+```bash
+# Jika salah ubah domain
+bps session set-domain 3300 --json
+bps session undo --json
 ```
 
 ---
 
-## 📁 Struktur Direktori
+## 🧪 Verifikasi Kepatuhan & Pengujian
 
+Jalankan skrip validator mandiri untuk memverifikasi seluruh komponen harness:
+```bash
+python scripts/verify_harness.py
 ```
-.
-├── .env.example                                      # Template file konfigurasi
-├── .gitignore                                        # Proteksi file .env agar token aman
-├── README.md                                         # Dokumentasi repositori
-├── bps_api_documentation.md                          # Dokumentasi mentah BPS
-└── .agents/skills/bps-api/                           # Paket Skill Antigravity
-    ├── SKILL.md                                      # Runbook instruksi utama agent
-    ├── scripts/
-    │   ├── __init__.py                               # Package entry point
-    │   └── bps_client.py                             # Klien CLI & SDK Python
-    ├── references/
-    │   ├── endpoints.md                              # Endpoint terverifikasi bebas bug
-    │   ├── domains.md                                # Master 34 domain provinsi
-    │   ├── dynamic_data_guide.md                     # Panduan decoding datacontent
-    │   └── v1_vs_v2.md                               # Laporan teknis engine V1 vs V2
-    ├── examples/                                     # 4 Skrip contoh siap pakai
-    └── tests/                                        # Automated test suite (100% pass)
+
+Jalankan test suite pytest (100% passing):
+```bash
+python -m pytest cli_anything/bps/tests -v
 ```
 
 ---
 
-## 🧪 Menjalankan Pengujian Mandiri
+## 📚 Dokumen Spesifikasi Penting
 
-```bash
-python -m unittest discover -s .agents/skills/bps-api/tests
-```
-
----
-
-## 📦 Instalasi via `npx skills` (skills.sh)
-
-Skill ini telah kompatibel 100% dan terdaftar di ekosistem **`npx skills`** (kompatibel dengan berbagai coding agent: Antigravity, Cursor, Cline, Claude Code, GitHub Copilot, Codex, Windsurf, dll.).
-
-### Cara Memasang di Proyek Lain (Project-Level)
-Di dalam direktori proyek apa pun yang sedang Anda kerjakan, jalankan perintah berikut untuk memasang skill ini:
-
-```bash
-npx skills add RendiZein/sbps_api_skill --skill bps-api -p
-```
-
-> [!NOTE]
-> * Flag `-p` (*project-level*) memastikan skill terpasang hanya di dalam proyek tersebut dan **tidak** mengubah konfigurasi global.
-> * Setelah terpasang, pastikan untuk mengisi `BPS_API_KEY` di file `.env` proyek target Anda.
+* [grand_plan_bps_api_cli.md](./grand_plan_bps_api_cli.md): Dokumen Master Plan spesifikasi lengkap 16 pilar.
+* [BPS.md](./BPS.md): Spesifikasi arsitektur domain, rute URL, dan formula dekoder matriks komposit BPS.
+* [coverage.matrix.json](./coverage.matrix.json): Kontrak keterlacakan antara Use Case, CLI, Endpoint, dan Test.
+* [TEST.md](./TEST.md): Rencana pengujian dan hasil eksekusi pengujian otomatis.
+* [.agents/skills/bps-api/SKILL.md](./.agents/skills/bps-api/SKILL.md): Panduan SOP resmi untuk AI Agent Antigravity.

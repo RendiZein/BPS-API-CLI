@@ -1,0 +1,117 @@
+{
+  "software": "BPS-Web-API",
+  "version": "1.0.0",
+  "harness_protocol": "HKUDS-CLI-Anything",
+  "workflows": [
+    {
+      "use_case": "Probe kesiapan server BPS, latensi jaringan, dan validitas kunci API",
+      "cli_commands": [
+        "bps status --json"
+      ],
+      "backend_interfaces": [
+        "GET /v1/api/domain/type/prov/key/{key}/"
+      ],
+      "unit_tests": [
+        "test_api_ping_mock",
+        "test_status_cmd_structure"
+      ],
+      "e2e_tests": [
+        "test_e2e_status_live"
+      ]
+    },
+    {
+      "use_case": "Manajemen sesi riset aktif, penggantian domain, dan recovery dengan undo/redo",
+      "cli_commands": [
+        "bps session init --domain <id> --name <label> --json",
+        "bps session set-domain <id> --json",
+        "bps session undo --json",
+        "bps session redo --json",
+        "bps session status --json",
+        "bps session reset --json"
+      ],
+      "backend_interfaces": [],
+      "unit_tests": [
+        "test_session_store_save_load",
+        "test_session_undo_redo_stack",
+        "test_session_atomic_locking_windows"
+      ],
+      "e2e_tests": [
+        "test_e2e_session_lifecycle"
+      ]
+    },
+    {
+      "use_case": "Audit kelayakan topik riset empiris, deteksi anomali Papua 2022, dan rujukan BRS",
+      "cli_commands": [
+        "bps audit --topic <query> [--domain <id>] --json",
+        "bps inspect --var <id> [--domain <id>] --json"
+      ],
+      "backend_interfaces": [
+        "GET /v1/api/list/model/subject/domain/{domain}/page/{p}/key/{key}/",
+        "GET /v1/api/list/model/var/domain/{domain}/subject/{sub}/page/{p}/key/{key}/",
+        "GET /v1/api/list/model/th/domain/{domain}/var/{var}/page/{p}/key/{key}/",
+        "GET /v1/api/list/model/pressrelease/domain/{domain}/keyword/{kw}/key/{key}/"
+      ],
+      "unit_tests": [
+        "test_audit_topic_matching",
+        "test_audit_papua_anomaly_warning",
+        "test_inspect_variable_dimensions"
+      ],
+      "e2e_tests": [
+        "test_e2e_audit_kemiskinan_journey"
+      ]
+    },
+    {
+      "use_case": "Inspeksi data hemat token dengan Preview Protocol dan SHA-256 caching",
+      "cli_commands": [
+        "bps preview --var <id> --th <th_id> [--domain <id>] --json"
+      ],
+      "backend_interfaces": [
+        "GET /v1/api/list/model/data/domain/{domain}/var/{var}/th/{th}/key/{key}/"
+      ],
+      "unit_tests": [
+        "test_preview_summary_stats_calculation",
+        "test_preview_sha256_cache_hit",
+        "test_composite_key_decoder"
+      ],
+      "e2e_tests": [
+        "test_e2e_preview_bundle_artifacts"
+      ]
+    },
+    {
+      "use_case": "Kalkulasi keamanan kuota dry-run dan ekspor data final ke CSV/JSON",
+      "cli_commands": [
+        "bps fetch --var <id> --th <th_id> --dry-run --json",
+        "bps fetch --var <id> --th <th_id> --format csv --output <file> --json"
+      ],
+      "backend_interfaces": [
+        "GET /v1/api/list/model/data/domain/{domain}/var/{var}/th/{th}/key/{key}/"
+      ],
+      "unit_tests": [
+        "test_dry_run_quota_calculator",
+        "test_fetch_csv_writer"
+      ],
+      "e2e_tests": [
+        "test_e2e_fetch_and_verify_csv_file"
+      ]
+    },
+    {
+      "use_case": "Sinkronisasi katalog metadata wilayah dan subjek ke SQLite lokal untuk audit instan",
+      "cli_commands": [
+        "bps cache sync --json",
+        "bps cache status --json",
+        "bps cache clear --json"
+      ],
+      "backend_interfaces": [
+        "GET /v1/api/domain/type/all/key/{key}/",
+        "GET /v1/api/list/model/subject/domain/0000/key/{key}/"
+      ],
+      "unit_tests": [
+        "test_cache_sqlite_schema",
+        "test_cache_fuzzy_domain_search"
+      ],
+      "e2e_tests": [
+        "test_e2e_cache_sync_live"
+      ]
+    }
+  ]
+}

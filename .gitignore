@@ -3,3 +3,12 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .DS_Store
+.reference/
+.bps_session.json
+.bps_cache.db
+trajectory.json
+data/
+*.egg-info/
+*.egg
+build/
+dist/
