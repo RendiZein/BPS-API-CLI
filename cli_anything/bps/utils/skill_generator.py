@@ -125,5 +125,5 @@ def generate_skill_markdown(output_path: Path, cli_file: Path) -> None:
 
 if __name__ == "__main__":
     cli_path = Path("cli_anything/bps/bps_cli.py")
-    target_skill = Path(".agents/skills/bps-api/SKILL.md")
+    target_skill = Path("skills/bps-api/SKILL.md")
     generate_skill_markdown(target_skill, cli_path)

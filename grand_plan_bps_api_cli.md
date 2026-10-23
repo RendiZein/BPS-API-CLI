@@ -116,10 +116,9 @@ sbps_api_skill/
 ├── .bps_session.json                 # State Sesi Aktif (Gitignored)
 ├── trajectory.json                   # Log Replay Riwayat Riset (Gitignored)
 │
-├── .agents/
-│   └── skills/
-│       └── bps-api/
-│           └── SKILL.md              # SOP Kanonikal Agen Antigravity (Auto-generated)
+├── skills/
+│   └── bps-api/
+│       └── SKILL.md                  # SOP Kanonikal Agen Antigravity (Auto-generated)
 │
 ├── cli_anything/                     # Namespace Root (NO __init__.py sesuai PEP 420)
 │   └── bps/                          # Regular Sub-package (HAS __init__.py)

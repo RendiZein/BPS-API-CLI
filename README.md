@@ -91,10 +91,58 @@ python -m pytest cli_anything/bps/tests -v
 
 ---
 
+## 📁 Struktur Direktori Proyek
+
+```text
+BPS-API-CLI/
+├── cli_anything/                    # Package Python (PEP 420 Namespace)
+│   └── bps/                         # Implementasi Core BPS CLI & Engine
+│       ├── core/                    # API Client, SQLite Cache, Audit, Preview, Session
+│       ├── utils/                   # REPL Skin, Error Handler, Stream, Skill Generator
+│       └── tests/                   # Pytest Unit & E2E Subprocess Tests
+├── skills/                          # Kanonikal AI Agent Skills
+│   └── bps-api/
+│       └── SKILL.md                 # SOP Resmi Agen (Auto-generated via AST)
+├── references/                      # Arsip & Referensi Arsitektur BPS
+│   ├── ARCHITECTURE.md              # Blueprint Teknis Web API BPS
+│   ├── BPS_API_CHEATSHEET.md        # Ringkasan Cepat Endpoint & Parameter
+│   └── STATISTICAL_METHODOLOGY.md   # Metodologi Pembacaan Data Statistik BPS
+├── examples/                        # Resep Skrip Python Praktis
+│   ├── 01_macro_indicators.py       # PDB, Inflasi, Kemiskinan Nasional
+│   ├── 02_fetch_and_export_inflation.py # Penarikan & Ekspor Inflasi Bulanan
+│   ├── 03_provincial_comparison.py  # Komparasi Indikator Lintas Provinsi
+│   └── 04_foreign_trade_exim.py     # Data Ekspor/Impor per Kode HS
+├── scripts/                         # Skrip Utilitas & Harness
+│   └── verify_harness.py            # Automated Linter & Compliance Validator
+├── BPS.md                           # Spesifikasi Domain & Boundary BPS
+├── coverage.matrix.json             # Traceability Contract (CLI, API, Tests)
+├── grand_plan_bps_api_cli.md        # Dokumen Master Plan 16 Pilar
+├── plugin.json                      # Antigravity Plugin Manifest
+├── setup.py                         # Konfigurasi Instalasi CLI Package
+├── TEST.md                          # Rencana & Hasil Pengujian Sistem
+└── README.md                        # Dokumentasi Utama
+```
+
+---
+
+## 🤖 Integrasi AI Agent & Skill Discovery
+
+### Instalasi Skill ke Antigravity / Agentic Workspace
+AI Agent dapat langsung memanfaatkan skill ini dengan mengimpor folder skill:
+```bash
+npx skills add RendiZein/BPS-API-CLI --skill bps-api -p
+```
+Atau secara global untuk seluruh workspace:
+```bash
+npx skills add RendiZein/BPS-API-CLI --skill bps-api -g -y
+```
+
+---
+
 ## 📚 Dokumen Spesifikasi Penting
 
 * [grand_plan_bps_api_cli.md](./grand_plan_bps_api_cli.md): Dokumen Master Plan spesifikasi lengkap 16 pilar.
 * [BPS.md](./BPS.md): Spesifikasi arsitektur domain, rute URL, dan formula dekoder matriks komposit BPS.
 * [coverage.matrix.json](./coverage.matrix.json): Kontrak keterlacakan antara Use Case, CLI, Endpoint, dan Test.
 * [TEST.md](./TEST.md): Rencana pengujian dan hasil eksekusi pengujian otomatis.
-* [.agents/skills/bps-api/SKILL.md](./.agents/skills/bps-api/SKILL.md): Panduan SOP resmi untuk AI Agent Antigravity.
+* [skills/bps-api/SKILL.md](./skills/bps-api/SKILL.md): Panduan SOP resmi untuk AI Agent Antigravity.

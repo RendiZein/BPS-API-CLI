@@ -46,7 +46,7 @@ def main():
         ("setup.py", "PEP 420 Packaging Setup"),
         ("BPS.md", "Domain Architecture Specification"),
         ("coverage.matrix.json", "Traceability & Coverage Contract"),
-        (".agents/skills/bps-api/SKILL.md", "Canonical Agent SKILL.md"),
+        ("skills/bps-api/SKILL.md", "Canonical Agent SKILL.md"),
         ("grand_plan_bps_api_cli.md", "Grand Master Plan"),
     ]
     for rel_path, desc in required_files:
@@ -60,7 +60,7 @@ def main():
             errors += 1
 
     print("\n[3] Validating SKILL.md Frontmatter:")
-    skill_path = Path(".agents/skills/bps-api/SKILL.md")
+    skill_path = Path("skills/bps-api/SKILL.md")
     if skill_path.exists():
         text = skill_path.read_text(encoding="utf-8")
         if text.startswith("---") and "name: bps-api-analyst" in text:

@@ -9,9 +9,7 @@ dari BPS seperti Inflasi, PDB, Tingkat Pengangguran, dan Kemiskinan.
 import sys
 import os
 
-# Tambahkan path scripts agar modul bps_client dapat di-import langsung
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scripts")))
-from bps_client import BPSClient
+from cli_anything.bps.core.api import BPSClient
 
 
 def main():

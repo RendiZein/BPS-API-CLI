@@ -10,8 +10,7 @@ import sys
 import os
 import csv
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "scripts")))
-from bps_client import BPSClient
+from cli_anything.bps.core.api import BPSClient
 
 
 def main():

@@ -68,7 +68,7 @@ BPS Agent-Native Harness Compliance Verification
   [OK] PEP 420 Packaging Setup: setup.py
   [OK] Domain Architecture Specification: BPS.md
   [OK] Traceability & Coverage Contract: coverage.matrix.json
-  [OK] Canonical Agent SKILL.md: .agents/skills/bps-api/SKILL.md
+  [OK] Canonical Agent SKILL.md: skills/bps-api/SKILL.md
   [OK] Grand Master Plan: grand_plan_bps_api_cli.md
 
 [2] Validating JSON Manifests:
