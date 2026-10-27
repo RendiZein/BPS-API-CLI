@@ -15,6 +15,24 @@ Gunakan skill ini ketika pengguna mengajukan pertanyaan riset ekonomi/sosial, me
 4. **Use absolute paths** untuk argumen `--output` dan verifikasi bahwa file fisik benar-benar ada di disk sebelum melapor ke pengguna.
 5. **Probe Before Fetching:** Dilarang keras memanggil `fetch` sebelum menjalankan `audit` atau `inspect` dan menyajikan proposal opsi riset kepada pengguna.
 
+## Prasyarat & Instalasi di Mesin Baru (Prerequisites)
+Sebelum mengeksekusi analisis di mesin/laptop baru, pastikan kedua hal berikut:
+1. **Instalasi Binary `bps`:**  
+   Jika terminal merespon `'bps' is not recognized` atau `command not found`, pasang paket eksekutor Python via:
+   ```bash
+   pip install git+https://github.com/RendiZein/BPS-API-CLI.git
+   ```
+2. **Kunci API BPS Pribadi (`.env`):**  
+   Pengguna wajib memiliki API Key sendiri (gratis dari https://webapi.bps.go.id/developer) dan menyimpannya di `.env`:
+   ```env
+   BPS_API_KEY=kunci_api_anda_di_sini
+   ```
+
+## Self-Healing & Troubleshooting (Prosedur Otomatis AI)
+- **Jika Binary `bps` Belum Ada:** AI Agent harus segera menginfokan pengguna atau menawarkan diri untuk menjalankan perintah `pip install git+https://github.com/RendiZein/BPS-API-CLI.git`.
+- **Jika Kunci API Hilang / Error:** Jika `bps status` mengembalikan `"key_configured": false` atau terjadi `BPSAuthError`, minta pengguna mengisi `BPS_API_KEY` di file `.env` atau mendaftar di portal resmi BPS.
+- **Jika Terjadi WAF Rate Limit (HTTP 429):** CLI secara otomatis menerapkan exponential backoff. Agen cukup menunggu jeda sebelum mencoba kembali.
+
 ## Standard Operating Procedure (Alur Riset AI)
 - **Langkah 0 (Readiness):** Jalankan `bps status --json` untuk memverifikasi koneksi API dan latensi server.
 - **Langkah 1 (Sesi):** Identifikasi wilayah riset. Jika provinsi/kabupaten, jalankan `bps session set-domain <id>` (atau gunakan nama wilayah langsung).
