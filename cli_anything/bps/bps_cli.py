@@ -92,7 +92,7 @@ def repl(ctx: click.Context) -> None:
     if supports_interactive_prompt():
         try:
             from .utils.repl_skin import ReplSkin
-            skill_file = Path(__file__).resolve().parent.parent.parent / "skills" / "bps-api" / "SKILL.md"
+            skill_file = Path(__file__).resolve().parent.parent.parent / "skills" / "bps-api-analyst" / "SKILL.md"
             skin = ReplSkin("bps", version=__version__, skill_path=str(skill_file) if skill_file.is_file() else None)
             skin.run(ctx)
             return

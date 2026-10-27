@@ -1,8 +1,11 @@
 {
-  "name": "bps-data-analyst",
+  "name": "bps-api-analyst",
   "displayName": "BPS Indonesia Statistical Analyst",
   "description": "Agent-native statistical researcher and data availability auditor for Badan Pusat Statistik (BPS) Indonesia.",
   "version": "1.0.0",
+  "rules": [
+    "rules/AGENTS.md"
+  ],
   "suggestedPrompts": [
     "Audit ketersediaan data kemiskinan dan ketimpangan di Jawa Timur 5 tahun terakhir",
     "Periksa indikator makroekonomi strategis nasional terbaru (PDRB, Inflasi, IPM)",

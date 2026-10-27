@@ -101,19 +101,26 @@ BPS-API-CLI/
 │       ├── utils/                   # REPL Skin, Error Handler, Stream, Skill Generator
 │       └── tests/                   # Pytest Unit & E2E Subprocess Tests
 ├── skills/                          # Kanonikal AI Agent Skills
-│   └── bps-api/
-│       └── SKILL.md                 # SOP Resmi Agen (Auto-generated via AST)
-├── references/                      # Arsip & Referensi Arsitektur BPS
-│   ├── ARCHITECTURE.md              # Blueprint Teknis Web API BPS
-│   ├── BPS_API_CHEATSHEET.md        # Ringkasan Cepat Endpoint & Parameter
-│   └── STATISTICAL_METHODOLOGY.md   # Metodologi Pembacaan Data Statistik BPS
-├── examples/                        # Resep Skrip Python Praktis
-│   ├── 01_macro_indicators.py       # PDB, Inflasi, Kemiskinan Nasional
-│   ├── 02_fetch_and_export_inflation.py # Penarikan & Ekspor Inflasi Bulanan
-│   ├── 03_provincial_comparison.py  # Komparasi Indikator Lintas Provinsi
-│   └── 04_foreign_trade_exim.py     # Data Ekspor/Impor per Kode HS
+│   └── bps-api-analyst/             # Self-Contained Skill Directory
+│       ├── SKILL.md                 # SOP Resmi Agen (Auto-generated via AST)
+│       ├── references/              # Arsip & Referensi Arsitektur BPS
+│       │   ├── ARCHITECTURE.md
+│       │   ├── BPS_API_CHEATSHEET.md
+│       │   ├── STATISTICAL_METHODOLOGY.md
+│       │   ├── domains.md
+│       │   ├── dynamic_data_guide.md
+│       │   ├── endpoints.md
+│       │   └── v1_vs_v2.md
+│       └── examples/                # Resep Skrip Python Praktis
+│           ├── 01_macro_indicators.py
+│           ├── 02_fetch_and_export_inflation.py
+│           ├── 03_provincial_comparison.py
+│           └── 04_foreign_trade_exim.py
+├── rules/                           # Aturan Plugin Antigravity
+│   └── AGENTS.md                    # Guardrails & Konvensi AI Agent
 ├── scripts/                         # Skrip Utilitas & Harness
 │   └── verify_harness.py            # Automated Linter & Compliance Validator
+├── AGENTS.md                        # Workspace Root Rules
 ├── BPS.md                           # Spesifikasi Domain & Boundary BPS
 ├── coverage.matrix.json             # Traceability Contract (CLI, API, Tests)
 ├── grand_plan_bps_api_cli.md        # Dokumen Master Plan 16 Pilar
@@ -130,11 +137,11 @@ BPS-API-CLI/
 ### Instalasi Skill ke Antigravity / Agentic Workspace
 AI Agent dapat langsung memanfaatkan skill ini dengan mengimpor folder skill:
 ```bash
-npx skills add RendiZein/BPS-API-CLI --skill bps-api -p
+npx skills add RendiZein/BPS-API-CLI --skill bps-api-analyst -p
 ```
 Atau secara global untuk seluruh workspace:
 ```bash
-npx skills add RendiZein/BPS-API-CLI --skill bps-api -g -y
+npx skills add RendiZein/BPS-API-CLI --skill bps-api-analyst -g -y
 ```
 
 ---
@@ -145,4 +152,5 @@ npx skills add RendiZein/BPS-API-CLI --skill bps-api -g -y
 * [BPS.md](./BPS.md): Spesifikasi arsitektur domain, rute URL, dan formula dekoder matriks komposit BPS.
 * [coverage.matrix.json](./coverage.matrix.json): Kontrak keterlacakan antara Use Case, CLI, Endpoint, dan Test.
 * [TEST.md](./TEST.md): Rencana pengujian dan hasil eksekusi pengujian otomatis.
-* [skills/bps-api/SKILL.md](./skills/bps-api/SKILL.md): Panduan SOP resmi untuk AI Agent Antigravity.
+* [skills/bps-api-analyst/SKILL.md](./skills/bps-api-analyst/SKILL.md): Panduan SOP resmi untuk AI Agent Antigravity.
+* [rules/AGENTS.md](./rules/AGENTS.md): Guardrails dan aturan operasional AI Agent.

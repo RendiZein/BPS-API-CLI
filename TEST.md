@@ -65,10 +65,13 @@ BPS Agent-Native Harness Compliance Verification
 
 [1] Checking Required Files & Specifications:
   [OK] Antigravity Plugin Manifest: plugin.json
+  [OK] Antigravity Plugin Rules: rules/AGENTS.md
   [OK] PEP 420 Packaging Setup: setup.py
   [OK] Domain Architecture Specification: BPS.md
   [OK] Traceability & Coverage Contract: coverage.matrix.json
-  [OK] Canonical Agent SKILL.md: skills/bps-api/SKILL.md
+  [OK] Canonical Agent SKILL.md: skills/bps-api-analyst/SKILL.md
+  [OK] Methodology Reference: skills/bps-api-analyst/references/STATISTICAL_METHODOLOGY.md
+  [OK] Example Recipe: skills/bps-api-analyst/examples/01_macro_indicators.py
   [OK] Grand Master Plan: grand_plan_bps_api_cli.md
 
 [2] Validating JSON Manifests:

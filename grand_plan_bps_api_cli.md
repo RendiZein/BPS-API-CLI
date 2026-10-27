@@ -117,8 +117,13 @@ sbps_api_skill/
 ├── trajectory.json                   # Log Replay Riwayat Riset (Gitignored)
 │
 ├── skills/
-│   └── bps-api/
-│       └── SKILL.md                  # SOP Kanonikal Agen Antigravity (Auto-generated)
+│   └── bps-api-analyst/              # Self-Contained Skill Directory (Antigravity Standard)
+│       ├── SKILL.md                  # SOP Kanonikal Agen Antigravity (Auto-generated)
+│       ├── references/               # Dokumentasi Metodologi & Cheatsheet
+│       └── examples/                 # Resep Kode Python Praktis
+├── rules/
+│   └── AGENTS.md                     # Aturan Operasional & Guardrails Agen
+├── AGENTS.md                         # Hierarchical Workspace Rules
 │
 ├── cli_anything/                     # Namespace Root (NO __init__.py sesuai PEP 420)
 │   └── bps/                          # Regular Sub-package (HAS __init__.py)

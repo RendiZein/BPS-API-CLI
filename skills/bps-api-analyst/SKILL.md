@@ -86,3 +86,13 @@ bps session init --domain 3500 --name "Riset_Jatim" --json
 bps session set-domain 3300 --json
 bps session undo --json
 ```
+
+## Progressive Disclosure: References & Recipes
+
+Untuk rujukan metodologi atau resep skrip Python tingkat lanjut, buka dokumen spesifik di subdirektori berikut:
+- [Metodologi Statistik BPS](./references/STATISTICAL_METHODOLOGY.md)
+- [Cheatsheet Endpoint API](./references/BPS_API_CHEATSHEET.md)
+- [Panduan Data Dinamis & Komposit](./references/dynamic_data_guide.md)
+- [Blueprint Arsitektur API BPS](./references/ARCHITECTURE.md)
+- [Daftar Kode Wilayah/Domain](./references/domains.md)
+- [Resep Python Praktis (Examples)](./examples/)
